@@ -14,8 +14,9 @@ function getAllQuotes(req, res){
 
 function getRandomQuote(req, res){
    const now = Date.now();
+   const next = req.query.next === 'true';
 
-   if(!cachedQuote || !cacheTime || (now - cacheTime) > CACHE_DURATION){
+   if(next || !cachedQuote || !cacheTime || (now - cacheTime) > CACHE_DURATION){
       const randomIndex = Math.floor(Math.random() * quotes.length);
       cachedQuote = quotes[randomIndex];
       cacheTime = now;
